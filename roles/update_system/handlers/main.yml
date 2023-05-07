@@ -1,0 +1,10 @@
+---
+# handlers file for update_system
+- name: Reboot the machine
+  reboot:
+
+- name: Remove old kernels for RedHat
+  shell: sudo dnf remove -y $(dnf repoquery --installonly --latest-limit=-2)
+
+- name: Remove old kernel for Debian
+  shell: sudo purge-old-kernels --keep 2

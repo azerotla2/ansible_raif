@@ -1,0 +1,11 @@
+
+---
+- name: Test Connection and update servers
+  hosts: servers
+  become: yes
+
+  roles:
+    - update_system
+
+
+

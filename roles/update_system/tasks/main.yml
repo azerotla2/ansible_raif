@@ -1,0 +1,39 @@
+---
+# tasks file for update_system
+- block: #--->Block for RedHat<---
+
+   - name: Update os RedHat
+     dnf:
+       name: kernel
+       state: latest
+     notify:
+     - Reboot the machine
+     - Remove old kernels for RedHat
+
+   - name: Upgrade all packages exclude kernel RedHat
+     dnf:
+       name: "*"
+       exclude: kernel
+       state: latest
+     notify: Reboot the machine
+
+  when: ansible_os_family == "RedHat"
+
+- block:  # ---> Block for Debian<---
+
+   - name: Update os Debian
+     apt:
+       name: kernel
+       state: latest
+     notify:
+     - Reboot the machine
+     - Remove old kernels for Debian
+
+   - name: Upgrade all packages exclude kernel Debian
+     apt:
+       name: "*"
+       exclude: kernel
+       state: latest
+     notify: Reboot the machine
+
+  when: ansible_os_family == "Debian"
